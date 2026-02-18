@@ -1,0 +1,17 @@
+{% if media is defined %}
+    {% 
+        include 'components/player.html' with {
+            playerClass: playerClass ~ ' player',
+            defaultMessage,
+            mediaWrapperClass: 'player__videos',
+            fileWrapperClass: 'player__videos__video',
+            fileHeadingWrapperClass: 'player__video-heading-wrapper',
+            fileHeadingClass: 'player__videos__video__heading',
+            fileHeadingPrefix: 'Video',
+            cdnSelectorWrapperClass: '',
+            cdnSelectorButtonClass: 'player__cdn',
+            cdnSelectorButtonActiveClass: 'player__cdn--active',
+            cdnSelectorButtonInactiveClass: ''
+        }
+    %}
+{% endif %}

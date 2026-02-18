@@ -1,0 +1,25 @@
+<!--{% include 'components/trending_searches.html' %}
+-->
+
+<footer id="footer">
+    <div class="footer__menus">
+        {# Footer menu #}
+        {% set menu = menu_solve('footer') %}
+        {% if menu %}
+            {% for item in menu %}
+            <div class="footer__menus__menu">
+                <a href="{{ item.link }}"><h4>{{ item.text }}</h4></a>
+            
+                {% for subItem in item.items %}
+                    <a class="footer__menus__menu__item" href="{{ subItem.link }}" title="{{ subItem.text }}"{% if subItem.new_tab %} target="_blank"{% endif %}>{{ subItem.text }}</a>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="footer__info">
+        {{ website.getMetaValue('footer-text') | raw }}
+
+        <div style="font-size: 12px;color: #dadada;opacity: .8;"><p>© {{ date('Y') }} {{ website.getMetaValue('site-name') }}</p></div>
+    </div>
+</footer>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <body>
+        {{ embed_render('top-banner-ads') | raw }}
+        <div id="wrapper" class="container">
+            {% include 'partials/header.html' %}
+
+            {{ block('content') }}
+
+            <div style="height:30px"></div>
+            {% include 'partials/footer.html' %}
+        </div>
+
+        {% include 'components/common_js.html' %}
+        {{ embed_render('ads-script') | raw }}
+    </body>
+</html>

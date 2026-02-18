@@ -1,0 +1,20 @@
+{%
+    include 'components/pagination.html'
+    with {
+        'wrapperTag': 'div',
+        'wrapperClass': 'pagenavi',
+        'paginationTag': 'nav',
+        'paginationClass': 'paginator',
+        'paginationItemTag': 'div',
+        'paginationItemClass': 'paginator__item',
+        'paginationItemActiveClass': 'paginator__item--active',
+        'paginationItemLinkClass': 'paginator__item__link',
+
+        'firstText': firstText,
+        'previousText': '←',
+        'nextText': '→',
+        'lastText': lastText,
+        'count': count ?: 0,
+        'numberLinksCount': numberLinksCount
+    }
+%}

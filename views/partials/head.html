@@ -1,0 +1,19 @@
+<title>{{ pageTitle | raw | trim }}</title>
+<meta name="description" content="{{ pageDescription | raw | trim }}" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+<style>
+:root {
+    --theme-color: {{ website.getMetaValue('neon-theme-color') ?: '#e69e14' }};
+}
+</style>
+
+<link href="{{ link_asset('css/style.css') }}?p={{ theme.dev_mode ? time() : 3 }}" rel="stylesheet">
+
+<link rel="canonical" href="{{ link_current(false) }}" />
+
+{{ embed_render('head') | raw }}
+
+{% include 'components/common_css.html' %}
+{% include 'components/common_open_graph.html' %}

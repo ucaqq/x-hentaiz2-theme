@@ -1,0 +1,12 @@
+{% if resources %}
+<div class="list-videos">
+    {% for resource in resources %}
+        {% include 'components/video_item.html' with { resource } %}
+    {% endfor %}
+</div>
+{% endif %}
+<br />
+{# Pagination #}
+{% include 'components/vlxx_pagination.html' with {
+    count: resourcesCount ?: 0
+} %}
