@@ -3,7 +3,22 @@
 @import "./partials/aside.css";
 @import "./partials/header.css";
 
+@import "./components/badge.css";
+@import "./components/heading.css";
+@import "./components/hero_carousel.css";
+@import "./components/input.css";
+
 @theme {
+
+    --color-primary: oklch(65% 0.22 280);
+    --color-success: oklch(70% 0.15 155);
+    --color-muted: oklch(24% 0.025 285);
+    --color-border: oklch(28% 0.025 285);
+    --color-primary-foreground: oklch(98% 0 0);
+    --color-muted-foreground: oklch(60% 0.02 285);
+
+    --color-input: oklch(32% 0.025 285);
+
     --color-background: oklch(14% 0.025 285);
     --color-foreground: oklch(95% 0.01 285);
     --color-card: oklch(18% 0.025 285);
@@ -30,4 +45,3 @@ body {
 #wrapper {
     @apply flex min-h-screen flex-col;
 }
-

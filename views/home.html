@@ -1,8 +1,6 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
-    {% include 'components/home/hero.html' with {
-        text: listData.getTitle()
-    } %}
-    
+    {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
+
 {% endblock %}

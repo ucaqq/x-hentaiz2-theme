@@ -1,0 +1,4 @@
+
+.featured-heading {
+    @apply text-xl leading-tight font-bold drop-shadow-lg md:text-3xl lg:text-4xl xl:text-5xl;
+}

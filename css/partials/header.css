@@ -5,6 +5,10 @@
         @apply flex h-14 items-center gap-2 px-4 lg:gap-4;
     }
 
+    .header__logo {
+        @apply flex shrink-0 items-center gap-2;
+    }
+
     .header__burger {
         @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9;
 
@@ -33,5 +37,46 @@
         .header__burger__stick--bottom {
             @apply -rotate-45;
         }
+    }
+
+    .header__spacer {
+        @apply flex-1 lg:hidden;
+    }
+
+    .header__search {
+        @apply hidden lg:flex flex-1 justify-center px-4;
+
+        .header__search__wrapper {
+            @apply relative w-full max-w-md;
+        }
+
+        svg {
+            @apply absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground;
+        }
+    }
+
+    .header__mobile-search-deactivate-button {
+        @apply hidden focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9;
+    }
+
+    .header__mobile-search-activate-button {
+        @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9 lg:hidden;
+    }
+}
+
+#header.header--mobile-search-active {
+    .header__search {
+        @apply flex;
+    }
+
+    .header__burger, 
+    .header__logo,
+    .header__spacer,
+    .header__mobile-search-activate-button {
+        @apply hidden;
+    }
+
+    .header__mobile-search-deactivate-button {
+        @apply inline-flex;
     }
 }

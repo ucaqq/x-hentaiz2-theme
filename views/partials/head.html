@@ -9,11 +9,13 @@
 }
 </style>
 
-<link href="{{ link_asset('css/style.css') }}?p={{ theme.dev_mode ? time() : 3 }}" rel="stylesheet">
-
 <link rel="canonical" href="{{ link_current(false) }}" />
 
 {{ embed_render('head') | raw }}
 
 {% include 'components/common_css.html' %}
 {% include 'components/common_open_graph.html' %}
+
+<link href="{{ link_asset('css/style.css') }}?p={{ theme.dev_mode ? time() : 3 }}" rel="stylesheet">
+<script src="{{ link_asset('js/embla.js') }}"></script>
+<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>

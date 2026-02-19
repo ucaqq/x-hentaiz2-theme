@@ -1,0 +1,63 @@
+.hero-carousel {
+    @apply relative mb-3 sm:mb-6;
+
+    .hero-carousel__viewport {
+        @apply overflow-hidden;
+
+        .embla__container {
+            display: flex;
+            touch-action: pan-y pinch-zoom;;
+        }
+
+        .embla__slide {
+            @apply relative;
+            flex: 0 0 100%;
+            min-width: 0;
+        }
+    }
+
+    .hero-carousel__media {
+        @apply relative cursor-grab active:cursor-grabbing;
+
+        .hero-carousel__media__wrapper {
+            @apply overflow-hidden;
+        }
+
+        .hero-carousel__media__item {
+            @apply relative h-64 w-full overflow-hidden sm:h-80 md:h-112 lg:h-144 xl:h-160 2xl:h-192;
+
+            img {
+                @apply absolute inset-0 size-full object-cover object-top;
+            }
+
+            .hero-carousel__media__item__fog {
+                @apply absolute inset-0 bg-linear-to-t from-background via-background/30 to-transparent;
+            }
+        }
+    }
+
+    .hero-carousel__info {
+        @apply pointer-events-none absolute inset-0 mx-auto flex max-w-[2000px] flex-col justify-end px-3 pb-3 sm:pr-4 sm:pb-6 sm:pl-16 lg:pr-8 lg:pb-8 lg:pl-20;
+
+        .hero-carousel__info__tags {
+            @apply pointer-events-auto flex flex-wrap items-center gap-1.5 md:gap-2;
+        }
+
+        .hero-carousel__info__description {
+            @apply mt-5;
+            @apply hidden max-w-2xl text-sm leading-relaxed text-muted-foreground drop-shadow md:line-clamp-2 md:[display:-webkit-box] lg:line-clamp-3 lg:max-w-3xl lg:text-base;
+        }
+    }
+
+    .hero-carousel__control-button {
+        @apply absolute top-1/2 z-20 size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-background/50 active:scale-95 sm:group-hover:flex md:size-12;
+    }
+
+    .hero-carousel__control-button--previous {
+        @apply left-2 sm:left-4;
+    }
+
+    .hero-carousel__control-button--next {
+        @apply right-2 sm:right-4;
+    }
+}
