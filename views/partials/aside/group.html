@@ -1,0 +1,19 @@
+{#
+    Variables: heading, items, asItem (boolean)
+#}
+<div data-slot="sidebar-group" data-sidebar="group" class="aside__menu__content__group{% if asItem %} aside__menu__content__group--as-item{% endif %}">
+    {% if heading %}
+    <div class="aside__menu__content__group__heading" data-slot="sidebar-group-label" data-sidebar="group-label">
+        {{ heading }}
+    </div>
+    {% endif %}
+    <div data-slot="sidebar-group-content" data-sidebar="group-content" class="w-full text-sm">
+        <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-1">
+            {% if items %}
+                {% for item in items%}
+                    {% include 'partials/aside/item.html' with {item} %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>

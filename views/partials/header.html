@@ -1,4 +1,49 @@
 <header id="header">
+    <div class="header__wrapper">
+        <button onclick="toggleAsideMenu()" data-slot="button" class="header__burger" type="button" aria-label="Mở menu">
+            <div class="relative size-5">
+                <span class="header__burger__stick header__burger__stick--top"></span>
+                <span class="header__burger__stick header__burger__stick--bottom"></span>
+            </div>
+        </button>
+        <a href="/" class="flex shrink-0 items-center gap-2">
+            {% if website.getMetaValue('logo') %}
+            <img src="{{ website.getMetaValue('logo') }}" alt="{{ website.getMetaValue('site-name') }}" class="h-8 w-auto">
+            {% else %}
+            <strong>{{ website.getMetaValue('site-name') }}</strong>
+            {% endif %}
+        </a>
+        <div class="flex-1 lg:hidden"></div>
+        <form action="/browse" method="GET" class="hidden flex-1 justify-center px-4 lg:flex">
+            <div class="relative w-full max-w-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-search absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground">
+                    <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                    <path d="M21 21l-6 -6"></path>
+                </svg>
+                <input data-slot="input" class="border-input bg-background selection:bg-primary dark:bg-input/30 selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground flex h-9 min-w-0 rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive w-full pl-9" type="search" name="q" placeholder="Tìm kiếm phim...">
+            </div>
+        </form>
+        <button data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-9 lg:hidden" type="button" aria-label="Tìm kiếm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-search size-5">
+                <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                <path d="M21 21l-6 -6"></path>
+            </svg>
+        </button>
+        <a data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs size-9 shrink-0 lg:hidden" href="/login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-user size-5">
+                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+            </svg>
+        </a>
+        <a data-slot="button" class="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs h-8 gap-1.5 rounded-md px-3 has-[&gt;svg]:px-2.5 hidden shrink-0 lg:inline-flex" href="/login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-user">
+                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+            </svg>Đăng nhập </a>
+    </div>
+</header>
+
+<!-- <header id="header">
     <div id="logo">
         <a href="/">
             {% set siteName = website.getMetaValue('site-name') %}
@@ -38,4 +83,4 @@
     </form>
 </header>
 
-{% include 'partials/navbar.html' %}
+-->

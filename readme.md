@@ -4,5 +4,5 @@
 
 | Key | Desc |
 |-----|------|
+| logo | Logo img url |
 | footer-text | Support raw html |
-| neon-theme-color | Default: #e69e14 |

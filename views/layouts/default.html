@@ -4,17 +4,20 @@
         {% include 'partials/head.html' %}
     </head>
     <body>
-        {{ embed_render('top-banner-ads') | raw }}
-        <div id="wrapper" class="container">
-            {% include 'partials/header.html' %}
+        <div style="display: contents">
+            {{ embed_render('top-banner-ads') | raw }}
+            <div id="wrapper">
+                {% include 'partials/header.html' %}
+                {% include 'partials/aside.html' %}
 
-            {{ block('content') }}
+                {{ block('content') }}
 
-            <div style="height:30px"></div>
-            {% include 'partials/footer.html' %}
+                <div style="height:30px"></div>
+                {% include 'partials/footer.html' %}
+            </div>
+
+            {% include 'components/common_js.html' %}
+            {{ embed_render('ads-script') | raw }}
         </div>
-
-        {% include 'components/common_js.html' %}
-        {{ embed_render('ads-script') | raw }}
     </body>
 </html>

@@ -1,0 +1,70 @@
+<!-- <div id="navbar" class="navbar">
+    <a href="/?view=the-loai" class="navbar__item {{ request.query('view') == 'the-loai' ? ' navbar__item--active' : '' }}">
+        Thể loại
+    </a>
+    
+    {% if menu %}
+        {% for item in menu %}
+        <a href="{{ item.link }}" class="navbar__item {{ (link_current(false) is same as item.link or request.path() is same as item.link) ? ' navbar__item--active' : '' }}">
+            {{ item.text }}
+        </a>
+        {% endfor %}
+    {% endif %}
+</div> -->
+
+{% set menu = menu_solve('main') %}
+<div id="aside" style="display:none">
+    <button onclick="toggleAsideMenu()" class="aside__close-button" aria-label="Đóng menu"></button>
+    <aside class="aside__menu">
+        <div data-slot="scroll-area" class="relative h-full" style="position:relative;--bits-scroll-area-corner-height:0px;--bits-scroll-area-corner-width:0px" data-scroll-area-root="">
+            <div data-slot="scroll-area-viewport" class="aside__menu__wrapper" style="overflow:hidden scroll" data-scroll-area-viewport="">
+                <div data-scroll-area-content="">
+                    <div data-slot="sidebar-content" data-sidebar="content" class="aside__menu__content">
+                        
+                        {% if menu %}
+                            {% for item in menu %}
+                                {% if item.items %}
+
+                                    {% include 'partials/aside/group.html' with {
+                                        asItem: false,
+                                        heading: item.text,
+                                        items: item.items
+                                    } %}
+
+                                {% else %}
+
+                                    {% include 'partials/aside/group.html' with {
+                                        asItem: true,
+                                        items: [
+                                            item
+                                        ]
+                                    } %}
+
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<script>
+window.isAsideMenuOpened = false
+function toggleAsideMenu() {
+    const headerBurgerButton = document.querySelector('.header__burger')
+    const aside = document.getElementById('aside')
+
+    if (window.isAsideMenuOpened) {
+        window.isAsideMenuOpened = false
+        headerBurgerButton.classList.remove('header__burger--active')
+        aside.style.display = 'none'
+    } else {
+        window.isAsideMenuOpened = true
+        headerBurgerButton.classList.add('header__burger--active')
+        aside.style.display = 'block'
+    }
+}
+</script>

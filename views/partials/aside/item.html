@@ -1,0 +1,11 @@
+{#
+    Variables: item {link, text}
+#}
+{% if item and item.text %}
+<li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="relative">
+    <a href="{{ item.link ?: '/' }}" class="aside__menu__content__item" data-slot="sidebar-menu-button" data-sidebar="menu-button" data-size="default" data-active="false">
+        {% include 'partials/aside/item/icon.html' with { text: item.text } %}
+        <span>{{ item.text }}</span>
+    </a>
+</li>
+{% endif %}
