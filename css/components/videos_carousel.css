@@ -1,5 +1,5 @@
 .videos-carousel {
-    @apply px-5 overflow-hidden;
+    @apply overflow-hidden;
 
     .videos-carousel__header {
         @apply mb-3 flex items-center justify-between lg:mb-4;

@@ -10,7 +10,9 @@
                 {% include 'partials/header.html' %}
                 {% include 'partials/aside.html' %}
 
-                {{ block('content') }}
+                <div class="px-3">
+                    {{ block('content') }}
+                </div>
 
                 <div style="height:30px"></div>
                 {% include 'partials/footer.html' %}

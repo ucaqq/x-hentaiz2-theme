@@ -11,7 +11,6 @@
 @import "./components/videos_carousel.css";
 
 @theme {
-
     --color-primary: oklch(65% 0.22 280);
     --color-success: oklch(70% 0.15 155);
     --color-muted: oklch(24% 0.025 285);
@@ -37,6 +36,24 @@
 
     --font-sans: ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     --default-font-family: var(--font-sans);
+
+    --animate-object-pan-vertical: object-pan-vertical 8s ease-in-out infinite;
+}
+
+
+@keyframes object-pan-vertical {
+    0% {
+        object-position: 50% 0%;
+    }
+    35% {
+        object-position: 25% 50%;
+    }
+    75% {
+        object-position: 50% 100%;
+    }
+    100% {
+        object-position: 50% 0%;
+    }
 }
 
 body {

@@ -27,7 +27,7 @@
             @apply relative h-64 w-full overflow-hidden sm:h-80 md:h-112 lg:h-144 xl:h-160 2xl:h-192;
 
             img {
-                @apply absolute inset-0 size-full object-cover object-top;
+                @apply absolute inset-0 size-full object-cover object-top animate-object-pan-vertical;
             }
 
             .hero-carousel__media__item__fog {

@@ -22,7 +22,7 @@
                 <div class="hero-carousel__info">
                     <div class="space-y-2">
                         <div class="flex items-center gap-1.5">
-                            <span class="badge badge--green">{{ video.getModel().views | number_format }} views</span>
+                            <span class="badge badge--primary">{{ video.getModel().views | number_format }} views</span>
                         </div>
                         <a class="pointer-events-auto block" href="{{ video.getLink() }}" aria-label="Xem Imaizumin Chi wa Douyara Gal no Tamariba ni Natteru Rashii">
                             <h2 class="featured-heading">{{ video.getTitle() }}</h2>
@@ -73,6 +73,6 @@
     prevButtonNode.addEventListener('click', () => emblaApi.scrollPrev(), false)
     nextButtonNode.addEventListener('click', () => emblaApi.scrollNext(), false)
 
-    emblaApi.plugins().autoplay?.play()
+    // emblaApi.plugins().autoplay?.play()
 })()
 </script>
