@@ -1,31 +1,46 @@
-<div class="video-item">
-    <a {% if alpine %} :href="video.url" {% else %} href="{{ resource.getLink() }}" {% endif %} 
-    class="video-item__thumb" 
-    {% if alpine %} :title="video.title" {% else %} title="{{ resource.getTitle() }}"{% endif %}>
-        
+{#
+    Variables: video, alpine (boolean)
+#}
+<a {% if alpine %} :href="video.url" {% else %} href="{{ video.getLink() }}" {% endif %} 
+    class="video-item group" 
+    {% if not alpine %}
+    aria-label="{{ video.title }}"
+    {% endif %}
+>
+    <div class="relative">
+        <div class="video-item__thumbnail">
+            <img {% if alpine %} :src="video.thumbnail_file_url || '{{ link_asset('img/default-video.jpg') }}'" {% else %} src="{{ video.getThumbnailFile() ? image_resize(300, video.getThumbnailFile()) : link_asset('img/default-video.jpg') }}" {% endif %} 
+                {% if alpine %} :alt="video.title" {% else %} alt="{{ video.getTitle() }}" {% endif %} 
+                draggable="false"
+            />
+        </div>
+
         {% if alpine %}
-        <div x-if="video.featured_labels.length" class="video-item__ribbon-wrapper">
+        <div class="video-item__label-wrapper">
             <template x-for="label in video.featured_labels">
-                    <span class="ribbon" x-text="label"></span>
+                <span class="video-item__label" x-text="label"></span>
             </template>
         </div>
-        {% elseif resource.getFeaturedLabels() | length %}
-            <div class="video-item__ribbon-wrapper">
-                {% for label in resource.getFeaturedLabels() %}
-                <span class="ribbon">{{ label }}</span>
-                {% endfor %}
-            </div>
+        {% elseif video.getFeaturedLabels() | length %}
+        <div class="video-item__label-wrapper">
+            {% for label in video.getFeaturedLabels() %}
+            <span class="video-item__label">{{ label }}</span>
+            {% endfor %}
+        </div>
         {% endif %}
 
-        <img {% if alpine %} :src="video.thumbnail_file_url || '{{ link_asset('img/default-video.jpg') }}'" {% else %} src="{{ resource.getThumbnailFile() ? image_resize(300, resource.getThumbnailFile()) : link_asset('img/default-video.jpg') }}" {% endif %} 
-            {% if alpine %} :alt="video.title" {% else %} alt="{{ resource.getTitle() }}" {% endif %}
-        />
-    </a>
-    <div class="video-item__title">
-        {% if alpine %}
-        <a :href="video.url" :title="video.title" x-text="video.title"></a>
-        {% else %}
-        <a href="{{ resource.getLink() }}" title="{{ resource.getTitle() }}">{{ resource.getTitle() }}</a>
-        {% endif %}
+        <div class="video-item__dimmer"></div>
     </div>
-</div>
+
+    {% if alpine %}
+    <h3 class="video-item__heading" x-text="video.title"></h3>
+    {% else %}
+    <h3 class="video-item__heading" title="{{ video.getTitle() }}">{{ video.getTitle() }}</h3>
+    {% endif %}
+
+    {% if alpine %}
+    <p class="video-item__subheading" x-text="video.views + ' views'"></p>
+    {% else %}
+    <p class="video-item__subheading">{{ video.getModel().views }} views</p>
+    {% endif %}
+</a>

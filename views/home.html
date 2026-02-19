@@ -3,4 +3,9 @@
 {% block content %}
     {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
 
+    {% include 'components/videos_carousel.html' with {
+        heading: 'Testing the component',
+        videos: listData.getResources(),
+    } %}
+    
 {% endblock %}

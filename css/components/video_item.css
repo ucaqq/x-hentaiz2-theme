@@ -1,0 +1,31 @@
+.video-item {
+    @apply block;
+
+    .video-item__thumbnail {
+        @apply relative aspect-video overflow-hidden rounded-lg bg-muted;
+
+        img {
+            @apply size-full object-cover transition-transform duration-300 group-hover:scale-105;
+        }
+    }
+
+    .video-item__label-wrapper {
+        @apply absolute w-full bottom-2 left-2 right-2 z-10 flex flex-wrap gap-1;
+    }
+
+    .video-item__label {
+        @apply rounded bg-black/70 px-1.5 py-0.5 text-xs font-medium text-white;
+    }
+
+    .video-item__dimmer {
+        @apply absolute inset-0 transition-colors duration-300 group-hover:bg-background/20;
+    }
+
+    .video-item__heading {
+        @apply mt-2 line-clamp-2 text-sm leading-tight font-medium transition-colors group-hover:text-primary md:text-base;
+    }
+
+    .video-item__subheading {
+        @apply mt-1 truncate text-xs text-muted-foreground;
+    }
+}

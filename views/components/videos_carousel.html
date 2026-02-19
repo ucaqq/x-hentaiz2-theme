@@ -1,0 +1,52 @@
+{#
+    Variables: heading, videos    
+#}
+
+{% set id = 'el-' ~ str_random() %}
+<div id="{{ id }}" class="videos-carousel embla">
+    <div class="videos-carousel__header">
+        <div class="videos-carousel__heading">
+            <h2>{{ heading }}</h2>
+        </div>
+        <div class="videos-carousel__control">
+            <button data-slot="button" class="videos-carousel__control__button videos-carousel__control__button--previous" type="button" aria-label="Cuộn sang trái">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-left">
+                    <path d="M15 6l-6 6l6 6"></path>
+                </svg>
+            </button>
+            <a data-slot="button" class="videos-carousel__control__button" href="/browse?isTrailer=false&animationType=TWO_D">Tất cả</a>
+            <button data-slot="button" class="videos-carousel__control__button videos-carousel__control__button--next" type="button" aria-label="Cuộn sang phải">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-right">
+                    <path d="M9 6l6 6l-6 6"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="embla__viewport">
+        <div class="videos-carousel__container embla__container">
+            {% for video in videos %}
+                <div class="embla__slide">
+                    {% include 'components/video_item.html' with { video } %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<script>
+(function () {
+    const wrapperNode = document.getElementById('{{ id }}')
+    const viewportNode = wrapperNode.querySelector('.embla__viewport')
+    const prevButtonNode = wrapperNode.querySelector('.videos-carousel__control__button--previous')
+    const nextButtonNode = wrapperNode.querySelector('.videos-carousel__control__button--next')
+
+    const emblaApi = EmblaCarousel(viewportNode, {
+        align: 'start',
+        slidesToScroll: 1,
+        dragFree: true,
+    })
+
+    prevButtonNode.addEventListener('click', () => emblaApi.scrollPrev(), false)
+    nextButtonNode.addEventListener('click', () => emblaApi.scrollNext(), false)
+})()
+</script>

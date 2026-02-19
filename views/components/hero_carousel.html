@@ -9,9 +9,9 @@
                 <div data-slot="carousel" class="hero-carousel__media" role="region" aria-roledescription="carousel">
                     <div data-slot="carousel-content" class="hero-carousel__media__wrapper">
                         <div class="flex -ms-4 ml-0" data-embla-container="">
-                            <a href="{{ video.getLink() }}" title="{{ video.title }}" data-slot="carousel-item" role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full ps-4 pl-0" data-embla-slide="" style="opacity:1;pointer-events:auto;transform:translateX(0)">
+                            <a href="{{ video.getLink() }}" title="{{ video.getTitle() }}" data-slot="carousel-item" role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full ps-4 pl-0" data-embla-slide="" style="opacity:1;pointer-events:auto;transform:translateX(0)">
                                 <div class="hero-carousel__media__item">
-                                    <img src="{{ video.getThumbnailFile() ? image_resize(1000, video.getThumbnailFile()) : link_asset('img/default-video.jpg') }}" alt="{{ video.title }}">
+                                    <img src="{{ video.getThumbnailFile() ? image_resize(1000, video.getThumbnailFile()) : link_asset('img/default-video.jpg') }}" alt="{{ video.getTitle() }}">
                                     <div class="hero-carousel__media__item__fog"></div>
                                     <div class="absolute inset-0 hidden bg-linear-to-r from-background/40 via-transparent to-transparent sm:block"></div>
                                 </div>
@@ -25,7 +25,7 @@
                             <span class="badge badge--green">{{ video.getModel().views | number_format }} views</span>
                         </div>
                         <a class="pointer-events-auto block" href="{{ video.getLink() }}" aria-label="Xem Imaizumin Chi wa Douyara Gal no Tamariba ni Natteru Rashii">
-                            <h2 class="featured-heading">{{ video.title }}</h2>
+                            <h2 class="featured-heading">{{ video.getTitle() }}</h2>
                         </a>
                         
                         {% if resource.getFeaturedLabels() | length %}
@@ -37,7 +37,7 @@
                         {% endif %}
         
                         <div class="hero-carousel__info__description">
-                            {{ video.description | raw }}
+                            {{ video.getDescription() | raw }}
                         </div>
                     </div>
                 </div>
@@ -70,8 +70,8 @@
         EmblaCarouselAutoplay()
     ])
 
-    prevButtonNode.addEventListener('click', () => emblaApi.scrollToPrev(), false)
-    nextButtonNode.addEventListener('click', () => emblaApi.scrollToNext(), false)
+    prevButtonNode.addEventListener('click', () => emblaApi.scrollPrev(), false)
+    nextButtonNode.addEventListener('click', () => emblaApi.scrollNext(), false)
 
     emblaApi.plugins().autoplay?.play()
 })()
