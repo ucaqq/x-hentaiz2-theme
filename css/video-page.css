@@ -1,11 +1,11 @@
 #video-page {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-5;
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-5 pt-5 lg:pt-10;
 
     .video-page__main {
         @apply col-span-1 lg:col-span-2;
 
         #player-wrapper {
-            @apply aspect-video mb-5;
+            @apply aspect-video mb-5 rounded-lg overflow-hidden;
         }
 
         .player__videos {
@@ -14,6 +14,59 @@
 
         .cdn-selector-wrapper {
             @apply flex gap-1.5;
+        }
+
+        h1 {
+            @apply mt-5 mb-3;
+        }
+
+        .video-page__tags {
+            @apply items-center gap-2 flex flex-wrap w-fit mb-5;
+
+            .video-page__tags__symbols {
+                @apply flex -space-x-2;
+
+                .video-page__tags__symbols__wrapper {
+                    @apply hover:scale-110 hover:z-10 transition-transform;
+                }
+
+                .video-page__tags__symbols__symbol {
+                    @apply flex rounded-full border-2 border-background overflow-hidden relative shrink-0 size-10;
+
+                    .video-page__tags__symbols__symbol__text {
+                        @apply flex rounded-full bg-muted items-center justify-center size-full;
+                    }
+
+                    .video-age__tags__symbols__symbol__image {
+                        @apply aspect-square size-full;
+                    }
+                }
+            }
+
+            .video-page__tags__labels {
+                @apply flex items-center flex-wrap gap-x-1 text-sm;
+
+                .video-page__tags__labels__label {
+                    @apply font-medium hover:text-primary;
+                }
+
+                .video-page__tags__labels__label:not(last-child)::after {
+                    content: ', ';
+                    @apply text-muted-foreground;
+                }
+            }
+        }
+
+        .video-page__main__card {
+            @apply bg-card border border-border p-3 rounded-xl;
+
+            .video-page__main__card__subheading {
+                @apply text-sm text-muted-foreground;
+            }
+        }
+
+        .video-page__information {
+            @apply gap-3 grid grid-cols-1 mt-3 sm:grid-cols-2;
         }
     }
 

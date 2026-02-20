@@ -7,9 +7,115 @@
         {# Media player #}
         {% include 'components/hentaiz2_player.html' with { media } %}
 
+        <h1 class="heading">{{ post.title }} </h1>
+
+        <!-- Tags -->
+        {% set websiteTags = model_relation(post, 'websiteTags') %}
+        <div class="video-page__tags">
+            <div class="video-page__tags__symbols">
+                {% set initials = [] %}
+                {% for websiteTag in websiteTags %}
+                    
+                    {% set thumbnailFile = model_relation(websiteTag, 'thumbnailFile') %}
+                    {% if thumbnailFile %}
+                    <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteTag) }}" title="{{ websiteTag.name }}">
+                        <span class="video-page__tags__symbols__symbol">
+                            <img class="video-age__tags__symbols__symbol__image" alt="{{ websiteTag.name }}" src="{{ image_resize(100, thumbnailFile) }}" />
+                        </span>
+                    </a>
+                    {% else %}
+                        {% set initial = str_substr(websiteTag.name, 0, 1) %}
+                        {% if initial not in initials %}
+                            <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteTag) }}" title="{{ websiteTag.name }}">
+                                <span class="video-page__tags__symbols__symbol">
+                                    <span class="video-page__tags__symbols__symbol__text">{{ initial | upper }}</span>
+                                </span>
+                            </a>
+                            {% set initials = initials | merge([initial]) %}
+                        {% endif %}
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+            <div class="video-page__tags__labels">
+                {% for websiteTag in websiteTags %}
+                <a class="video-page__tags__labels__label" href="{{ link_to(websiteTag) }}">{{ websiteTag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Contents -->
+        <div class="video-page__main__card">
+            <div class="video-page__main__card__subheading">{{ post.views | number_format }} lượt xem • {{ post.created_at | date('d/m/Y') }}</div>
+            <div class="text-sm mt-1">
+                <div>
+                    {{ content.content | raw }}
+                </div>
+                
+                <!-- in4 -->
+                <div class="video-page__information">
+                    <div class=sm:col-span-2>
+                        <div class="font-medium text-muted-foreground text-xs">Tên khác</div>
+                        <div class="flex flex-wrap gap-x-3 mt-1">
+                            <span>今泉ん家はどうやらギャルの溜まり場になってるらしい</span>
+                        </div>
+                    </div>
+                    <div class=sm:col-span-2>
+                        <div class="font-medium text-muted-foreground text-xs">Tags</div>
+                        <div class="flex flex-wrap gap-x-3 mt-1">
+                            <a class="hover:opacity-80 text-primary" href=/tags/今泉ん家はどうやらギャルの溜まり場になってるらしい>今泉ん家はどうやらギャルの溜まり場になってるらしい</a>
+                            <a class="hover:opacity-80 text-primary" href=/tags/imaizumin-chi-wa-douyara-gal>Imaizumin Chi wa Douyara Gal</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-muted-foreground text-xs">Loại phim</div>
+                        <div class=mt-1>
+                            <a class="hover:opacity-80 text-primary" href="/browse?animationType=TWO_D">Hentai 2D</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-muted-foreground text-xs">Kiểm duyệt</div>
+                        <div class=mt-1>
+                            <a class="hover:opacity-80 text-primary" href="/browse?contentRating=CENSORED">Có che</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-muted-foreground text-xs">Năm phát hành</div>
+                        <div class=mt-1>
+                            <a class="hover:opacity-80 text-primary" href="/browse?year=2026">2026</a>
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2 mt-3">
+                        <div class="gap-3 grid grid-cols-1 md:grid-cols-2">
+                            <a class="flex items-center gap-3 w-fit" href=/studios/t-rex>
+                                <div class="flex rounded-full overflow-hidden relative shrink-0 size-10" data-avatar-root="" data-slot=avatar data-status=error id=bits-c202>
+                                    <img alt=T-Rex class="size-full aspect-square" data-avatar-image="" data-slot=avatar-image data-status=error id=bits-c203 src="" style=display:none>
+                                    <span class="flex items-center bg-muted justify-center rounded-full size-full" data-avatar-fallback="" data-slot=avatar-fallback data-status=error>T</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-medium hover:text-primary text-sm">T-Rex</span>
+                                    <span class="text-muted-foreground text-xs">199 phim</span>
+                                </div>
+                            </a>
+                            <a class="flex items-center gap-3 w-fit" href=/studios/bunny-walker>
+                                <div class="flex rounded-full overflow-hidden relative shrink-0 size-10" data-avatar-root="" data-slot=avatar data-status=error id=bits-c205>
+                                    <img alt="Bunny Walker" class="size-full aspect-square" data-avatar-image="" data-slot=avatar-image data-status=error id=bits-c206 src="" style=display:none>
+                                    <span class="flex items-center bg-muted justify-center rounded-full size-full" data-avatar-fallback="" data-slot=avatar-fallback data-status=error>B</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-medium hover:text-primary text-sm">Bunny Walker</span>
+                                    <span class="text-muted-foreground text-xs">140 phim</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="video-page__side">
-        world
+        world?
     </div>
 </div>
 {% endblock %}
