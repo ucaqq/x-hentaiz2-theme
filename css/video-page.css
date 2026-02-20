@@ -1,0 +1,23 @@
+#video-page {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-5;
+
+    .video-page__main {
+        @apply col-span-1 lg:col-span-2;
+
+        #player-wrapper {
+            @apply aspect-video mb-5;
+        }
+
+        .player__videos {
+            @apply space-y-3;
+        }
+
+        .cdn-selector-wrapper {
+            @apply flex gap-1.5;
+        }
+    }
+
+    .video-page__side {
+        @apply col-span-1;
+    }
+}

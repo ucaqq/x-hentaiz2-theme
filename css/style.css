@@ -4,11 +4,14 @@
 @import "./partials/header.css";
 
 @import "./components/badge.css";
+@import "./components/button.css";
 @import "./components/heading.css";
 @import "./components/hero_carousel.css";
 @import "./components/input.css";
 @import "./components/video_item.css";
 @import "./components/videos_carousel.css";
+
+@import "./video-page.css";
 
 @theme {
     --color-primary: oklch(65% 0.22 280);
