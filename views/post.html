@@ -64,4 +64,9 @@
         {% include 'components/post/recommended_videos.html' with { post } %}
     </div>
 </div>
+<script>
+setTimeout(() => {
+    window.viewCount('{{ post.slug }}')
+}, 30*1000)
+</script>
 {% endblock %}

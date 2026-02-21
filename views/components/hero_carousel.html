@@ -1,62 +1,62 @@
-{#
-    Variables: videos
-#}
-<div class="hero-carousel group embla">
-    <div class="hero-carousel__viewport embla__viewport">
-        <div class="embla__container">
-            {% for video in videos %}
-            <div class="embla__slide">
-                <div data-slot="carousel" class="hero-carousel__media" role="region" aria-roledescription="carousel">
-                    <div data-slot="carousel-content" class="hero-carousel__media__wrapper">
-                        <div class="flex -ms-4 ml-0" data-embla-container="">
-                            <a href="{{ video.getLink() }}" title="{{ video.getTitle() }}" data-slot="carousel-item" role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full ps-4 pl-0" data-embla-slide="" style="opacity:1;pointer-events:auto;transform:translateX(0)">
-                                <div class="hero-carousel__media__item">
-                                    <img src="{{ video.getThumbnailFile() ? image_resize(1000, video.getThumbnailFile()) : link_asset('img/default-video.jpg') }}" alt="{{ video.getTitle() }}">
-                                    <div class="hero-carousel__media__item__fog"></div>
-                                    <div class="absolute inset-0 hidden bg-linear-to-r from-background/40 via-transparent to-transparent sm:block"></div>
+<div x-data="list('/ajax/top/day', true, 10)">
+    <template x-if="data.length">
+        <div class="hero-carousel group embla">
+            <div class="hero-carousel__viewport embla__viewport">
+                <div class="embla__container">
+                    
+                    <template x-for="video in data">
+                        <div class="embla__slide">
+                            <div data-slot="carousel" class="hero-carousel__media" role="region" aria-roledescription="carousel">
+                                <div data-slot="carousel-content" class="hero-carousel__media__wrapper">
+                                    <div class="flex -ms-4 ml-0" data-embla-container="">
+                                        <a :href="video.url" :title="video.title" data-slot="carousel-item" role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full ps-4 pl-0" data-embla-slide="" style="opacity:1;pointer-events:auto;transform:translateX(0)">
+                                            <div class="hero-carousel__media__item">
+                                                <img :src="video.thumbnail_file_url || '{{ link_asset('img/default-video.jpg') }}'" :alt="video.title">
+                                                <div class="hero-carousel__media__item__fog"></div>
+                                                <div class="absolute inset-0 hidden bg-linear-to-r from-background/40 via-transparent to-transparent sm:block"></div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
+                            </div>
+                            <div class="hero-carousel__info">
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="badge badge--primary" x-text="video.views + ' views'"></span>
+                                    </div>
+                                    <a class="pointer-events-auto block" :href="video.url" :aria-label="video.title">
+                                        <h2 class="featured-heading" x-text="video.title"></h2>
+                                    </a>
+                                    
+                                    <template x-if="video.featured_labels.length">
+                                        <div class="hero-carousel__info__tags">
+                                            <template x-for="label in video.feaetured_labels">
+                                                <span class="pill-badge pill-badge--primary" x-text="label"></span>
+                                            </template>
+                                        </div>
+                                    </template>
+                    
+                                    <div class="hero-carousel__info__description" x-text="video.description"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="hero-carousel__info">
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-1.5">
-                            <span class="badge badge--primary">{{ video.getModel().views | number_format }} views</span>
-                        </div>
-                        <a class="pointer-events-auto block" href="{{ video.getLink() }}" aria-label="Xem Imaizumin Chi wa Douyara Gal no Tamariba ni Natteru Rashii">
-                            <h2 class="featured-heading">{{ video.getTitle() }}</h2>
-                        </a>
-                        
-                        {% if video.getFeaturedLabels() | length %}
-                        <div class="hero-carousel__info__tags">
-                            {% for label in video.getFeaturedLabels() %}
-                            <span class="pill-badge pill-badge--primary">{{ label }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
+                    </template>
         
-                        <div class="hero-carousel__info__description">
-                            {{ video.getDescription() | raw }}
-                        </div>
-                    </div>
                 </div>
             </div>
-            {% endfor %}
-
+        
+            <button class="hero-carousel__control-button hero-carousel__control-button--previous" aria-label="Slide trước">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-left size-5 md:size-6">
+                    <path d="M15 6l-6 6l6 6"></path>
+                </svg>
+            </button>
+            <button class="hero-carousel__control-button hero-carousel__control-button--next" aria-label="Slide tiếp theo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-right size-5 md:size-6">
+                    <path d="M9 6l6 6l-6 6"></path>
+                </svg>
+            </button>
         </div>
-    </div>
-
-    <button class="hero-carousel__control-button hero-carousel__control-button--previous" aria-label="Slide trước">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-left size-5 md:size-6">
-            <path d="M15 6l-6 6l6 6"></path>
-        </svg>
-    </button>
-    <button class="hero-carousel__control-button hero-carousel__control-button--next" aria-label="Slide tiếp theo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-chevron-right size-5 md:size-6">
-            <path d="M9 6l6 6l-6 6"></path>
-        </svg>
-    </button>
+    </template>
 </div>
 
 <script>
