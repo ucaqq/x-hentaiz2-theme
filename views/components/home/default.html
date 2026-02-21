@@ -1,7 +1,9 @@
 {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
 
 {% include 'components/videos_carousel.html' with {
-    heading: 'Mới nhất',
+    useH1: true,
+    heading: listData.getTitle(),
+    description: listData.getDescription(),
     viewAll: '/?view=all-videos',
     videos: listData.getResources(),
 } %}

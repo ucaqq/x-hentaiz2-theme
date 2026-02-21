@@ -1,21 +1,29 @@
 {#
-    Variables: heading, videos, viewAll (url), large (boolean)
+    Variables: 
+        useH1 (boolean),
+        heading, description, 
+        videos, 
+        viewAll (url), count, 
+        large (boolean)
 #}
 
 {% set id = 'el-' ~ str_random() %}
 <div id="{{ id }}" class="videos-carousel embla">
     <div class="videos-carousel__header">
         <div class="videos-carousel__heading">
-            {% if viewAll %}
-            <a href="{{ viewAll }}">
-                <h2>{{ heading }}</h2>
-            </a>
-            {% else %}
-            <h2>{{ heading }}</h2>
-            {% endif %}
+            {% if not useH1 %}
+                <a href="{{ viewAll }}">
+                    <h2>{{ heading }}</h2>
+                </a>
 
-            {% if count %}
-            <small>{{ count }} phim</small>
+                {% if count %}
+                <small>{{ count }} phim</small>
+                {% endif %}
+            {% else %}
+                <h1>{{ heading }}</h1>
+                {% if description %}
+                <small>{{ description }}</small>
+                {% endif %}            
             {% endif %}
         </div>
         <div class="videos-carousel__control">
