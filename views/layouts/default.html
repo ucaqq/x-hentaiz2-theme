@@ -21,5 +21,57 @@
             {% include 'components/common_js.html' %}
             {{ embed_render('ads-script') | raw }}
         </div>
+
+        <script>
+        (function () {
+            const root = document;
+
+            function setActive(card) {
+                const prev = root.querySelector(".list-videos .video-item.hover");
+                if (prev === card) return;
+
+                if (prev) {
+                    prev.classList.remove("hover");
+                }
+
+                if (card) {
+                    card.classList.add("hover");
+                }
+            }
+
+            // RAF throttle
+            let raf = 0;
+            function handlePoint(x, y) {
+                if (raf) return;
+                raf = requestAnimationFrame(() => {
+                    raf = 0;
+                    const el = document.elementFromPoint(x, y);
+                    const card = el?.closest?.(".card");
+                    if (card && root.contains(card)) setActive(card);
+                });
+            }
+
+            // iOS Safari
+            root.addEventListener(
+                "touchmove",
+                (e) => {
+                    const t = e.touches?.[0];
+                    if (!t) return;
+                    handlePoint(t.clientX, t.clientY);
+                },
+                { passive: true }
+            );
+
+            // Android/modern browsers
+            root.addEventListener(
+                "pointermove",
+                (e) => {
+                    if (e.pointerType !== "touch") return; // chỉ áp cho touch
+                    handlePoint(e.clientX, e.clientY);
+                },
+                { passive: true }
+            );
+        })()
+        </script>
     </body>
 </html>
