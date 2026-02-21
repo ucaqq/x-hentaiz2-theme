@@ -13,6 +13,7 @@
         viewAll: link_to(websiteCategory),
         videos: post_list_by_relationships('website_category', websiteCategory, 12).map((post) => post.toResourceData()),
         large: true,
+        count: websiteCategory.public_posts_count,
     } %}
 {% endfor %}
 

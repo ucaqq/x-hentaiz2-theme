@@ -6,10 +6,14 @@
     }
 
     .videos-carousel__heading {
-        @apply flex items-center gap-3;
+        @apply flex flex-col justify-center gap-1;
 
         h2 {
             @apply text-xl font-bold md:text-2xl;
+        }
+
+        small {
+            @apply text-muted-foreground;
         }
     }
 
@@ -36,6 +40,12 @@
 
         .videos-carousel__control__button--view-all {
             @apply inline-flex;
+        }
+
+        @media(max-width: 1024px) {
+            .videos-carousel__control__button--view-all {
+                @apply base-button;
+            }
         }
     }
 }

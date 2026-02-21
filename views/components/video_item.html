@@ -1,7 +1,7 @@
 {#
-    Variables: video, alpine (boolean)
+    Variables: video, alpine (boolean), viewAll, viewAllText
 #}
-<a {% if alpine %} :href="video.url" {% else %} href="{{ video.getLink() }}" {% endif %} 
+<a {% if alpine %} :href="video.url" {% else %} href="{{ video.getLink() ?: viewAll }}" {% endif %} 
     class="video-item group" 
     {% if not alpine %}
     aria-label="{{ video.title }}"
@@ -32,15 +32,22 @@
         <div class="video-item__dimmer"></div>
     </div>
 
-    {% if alpine %}
-    <h3 class="video-item__heading" x-text="video.title"></h3>
+    {% if viewAll and viewAllText %}
+        <div class="text-center pt-3">
+            <a class="video-item__heading" href="{{ viewAll }}">{{ viewAllText }}</a>
+        </div>
     {% else %}
-    <h3 class="video-item__heading" title="{{ video.getTitle() }}">{{ video.getTitle() }}</h3>
+        {% if alpine %}
+        <h3 class="video-item__heading" x-text="video.title"></h3>
+        {% else %}
+        <h3 class="video-item__heading" title="{{ video.getTitle() }}">{{ video.getTitle() }}</h3>
+        {% endif %}
+
+        {% if alpine %}
+        <p class="video-item__subheading" x-text="video.views + ' views'"></p>
+        {% else %}
+        <p class="video-item__subheading">{{ video.getModel().views }} views</p>
+        {% endif %}
     {% endif %}
 
-    {% if alpine %}
-    <p class="video-item__subheading" x-text="video.views + ' views'"></p>
-    {% else %}
-    <p class="video-item__subheading">{{ video.getModel().views }} views</p>
-    {% endif %}
 </a>
