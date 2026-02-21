@@ -1,0 +1,51 @@
+{% set websiteTags = model_relation(post, 'websiteTags') %}
+
+{# Find the tag by series #}
+{% set seriesWebsiteTag = null %}
+{% for websiteTag in websiteTags %}
+    {% if str_contains(str_slug(subject.title), websiteTag.slug) and not seriesWebsiteTag %}
+        {% set seriesWebsiteTag = websiteTag %}
+    {% endif %}
+{% endfor %}
+
+{% if seriesWebsiteTag %}
+    {% set relatedPosts = post_list_by_relationships('website_tag', seriesWebsiteTag, 20).where('id', '!=', post.id) %}
+    {% if relatedPosts | length %}
+    <div class="video-page__side__card mb-5">
+        <div class="video-page__side__card__heading">
+            <h3>{{ relatedPosts | length }} tập cùng bộ</h3>
+        </div>
+        <div class="video-page__side__card__content h-[280px]" style="position:relative;--bits-scroll-area-corner-height:0px;--bits-scroll-area-corner-width:0px" data-scroll-area-root="" dir=ltr>
+            <div class="video-page__side__card__content__wrapper" style="overflow:hidden scroll">
+                
+                {% for relatedPost in relatedPosts %}
+                <a class="video-page__side__card__list-item group" href=/watch/imaizumin-chi-wa-douyara-gal-no-tamariba-ni-natteru-rashii-1>
+                    <div class="video-page__side__card__list-item__thumbnail-wrapper">
+                        <div class="video-page__side__card__list-item__thumbnail">
+                            {% set thumbnailFile = model_relation(relatedPost, 'thumbnailFile') %}
+                            <img alt="{{ relatedPost.title }}" src="{{
+                                thumbnailFile
+                                ? image_resize(600, thumbnailFile)
+                                : link_asset('img/default-video.jpg')
+                            }}">
+                        </div>
+                    </div>
+                    <div class="video-page__side__card__list-item__details">
+                        <h4 class="video-page__side__card__list-item__details__heading">{{ relatedPost.title }}</h4>
+                        <span class="video-page__side__card__list-item__details__subheading">{{ relatedPost.views }} lượt xem</span>
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <script>
+        window.seriesSlugs = [
+        {% for relatedPost in relatedPosts %}
+            '{{ relatedPost.slug }}',
+        {% endfor %}
+        ];
+    </script>
+    {% endif %}
+{% endif %}

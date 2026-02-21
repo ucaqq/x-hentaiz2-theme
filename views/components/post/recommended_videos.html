@@ -1,0 +1,43 @@
+<h3 class="heading">Xem thêm</h3>
+<div class="recommended-videos" x-data="list('/ajax/suggestions/{{ post.slug }}', true, 10)">
+
+    <template x-for="video in data">
+        <template x-if="!window.seriesSlugs.includes(video.slug)">
+            <a class="recommended-videos__video group" :href="video.url">
+                <div class="recommended-videos__video__thumbnail">
+                    <div class="recommended-videos__video__thumbnail__wrapper">
+                        <img :alt="video.title" :src="video.thumbnail_file_url || '{{ link_asset('img/default-video.jpg') }}'">
+                    </div>
+                    <div class="recommended-video__video__thumbnail__featured-tags">
+                        <template x-for="label in video.featured_labels">
+                            <span class="recommended-videos__video__thumbnail__featured-tag" x-text="label"></span>
+                        </template>
+                    </div>
+                </div>
+                <div class="recommended-videos__video__details">
+                    <h3 x-text="video.title"></h3>
+                    <p class="text-muted-foreground text-xs mt-2" x-text="video.views + ' lượt xem'"></p>
+                </div>
+            </a>
+        </template>
+    </template>
+
+    <div class="mt-5 space-y-5">
+        <div x-show="isLoading">
+            <template x-for="i in 10">
+                <div class="recommended-videos__video recommended-videos__video--skeleton group">
+                    <div class="recommended-videos__video__thumbnail">
+                        <div class="recommended-videos__video__thumbnail__wrapper">
+
+                        </div>
+                    </div>
+                    <div class="recommended-videos__video__details">
+                        <h3></h3>
+                        <div class="recommended-videos__video__details__skeleton-subheading"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <button x-bind="trigger" class="button w-full max-w-sm">Tải thêm</button>
+    </div>
+</div>

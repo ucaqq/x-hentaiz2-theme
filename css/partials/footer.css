@@ -1,0 +1,69 @@
+#footer {
+    @apply bg-card pb-8 py-10 relative z-10;
+
+    .footer__wrapper {
+        @apply max-md:px-5 max-sm:px-4 max-w-7xl mx-auto px-10;
+    }
+
+    .footer__main {
+        @apply gap-10 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7;
+
+        .footer__main__branding {
+            @apply col-span-1 2xl:col-span-2;
+            @apply flex flex-col gap-4 max-lg:items-center max-lg:text-center;
+
+            img.footer__main__branding__logo {
+                @apply rounded-xl shadow-lg size-11;
+            }
+
+            .footer__main__branding__text-logo {
+                @apply text-foreground font-bold text-xl tracking-tight;
+            }
+
+            .footer__main__branding__footer-text {
+                @apply text-muted-foreground text-sm leading-relaxed max-w-md;
+            }
+        }
+
+        .footer__main__menus {
+            @apply col-span-1 md:col-span-2 xl:col-span-3 2xl:col-span-5;
+            @apply grid grid-cols-2 xl:grid-cols-4 gap-5;
+
+            .footer__main__menus__menu {
+                @apply flex flex-col;
+
+                h4 {
+                    @apply text-foreground font-semibold mb-4 opacity-80 text-xs tracking-wide uppercase;
+                }
+
+                ul {
+                    @apply space-y-2.5;
+
+                    li a { 
+                        @apply text-muted-foreground text-sm gap-2 hover:text-foreground inline-flex items-center transition-colors;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer__trending__searches {
+        @apply border-t border-border mt-6 pt-6 flex flex-wrap items-center gap-2;
+
+        h4 {
+            @apply text-foreground font-semibold opacity-80;
+        }
+    }
+
+    .footer__copyright {
+        @apply items-center flex border-border border-t justify-center mt-6 pt-5 text-center;
+
+        .footer__copyright__text {
+            @apply text-muted-foreground text-xs;
+
+            a {
+                @apply hover:text-primary text-foreground/70 transition-colors;
+            }
+        }
+    }
+}

@@ -17,3 +17,7 @@
 .pill-badge--primary {
     @apply border-primary/50 bg-primary/20 hover:bg-primary/30;
 }
+
+.mini-badge {
+    @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 font-medium whitespace-nowrap focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3 bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-transparent text-xs transition-colors hover:bg-primary/20;
+}

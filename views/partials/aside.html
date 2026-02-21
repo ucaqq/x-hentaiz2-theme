@@ -13,7 +13,7 @@
 </div> -->
 
 {% set menu = menu_solve('main') %}
-<div id="aside" style="display:none">
+<div id="aside" class="aside" style="display:none">
     <button onclick="toggleAsideMenu()" class="aside__close-button" aria-label="Đóng menu"></button>
     <aside class="aside__menu">
         <div data-slot="scroll-area" class="relative h-full" style="position:relative;--bits-scroll-area-corner-height:0px;--bits-scroll-area-corner-width:0px" data-scroll-area-root="">
@@ -60,11 +60,19 @@ function toggleAsideMenu() {
     if (window.isAsideMenuOpened) {
         window.isAsideMenuOpened = false
         headerBurgerButton.classList.remove('header__burger--active')
-        aside.style.display = 'none'
+
+        aside.classList.remove('aside--open')
+        setTimeout(() => {
+            aside.style.display = 'none'
+        }, 300)
     } else {
         window.isAsideMenuOpened = true
         headerBurgerButton.classList.add('header__burger--active')
+
         aside.style.display = 'block'
+        setTimeout(() => {
+            aside.classList.add('aside--open')
+        }, 100)
     }
 }
 </script>

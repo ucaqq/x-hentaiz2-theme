@@ -1,0 +1,28 @@
+{#
+    Variables: heading or websiteTagGroup, websiteTags    
+#}
+<div class="video-page__information__group">
+    {% if not websiteTagGroup %}
+    <div class="video-page__information__group__heading">{{ heading ?: 'Tags' }}</div>
+    {% else %}
+    <a href="{{ link_to(websiteTagGroup) }}">{{ websiteTagGroup.name }}</a>
+    {% endif %}
+    <div class="video-page__information__group__content">
+        {% for websiteTag in websiteTags %}
+        <a class="video-page__information__group__content__item" href="{{ link_to(websiteTag) }}">
+            <div class="video-page__information__group__content__item__thumbnail">
+                {% set thumbnailFile = model_relation(websiteTag, 'thumbnailFile') %}
+                {% if thumbnailFile %}
+                <img alt="{{ websiteTag.name }}" src="{{ image_resize(100, thumbnailFile) }}" />
+                {% else %}
+                <span>{{ str_substr(websiteTag.name, 0, 1) | upper }}</span>
+                {% endif %}
+            </div>
+            <div class="video-page__information__group__content__item__details">
+                <span class="video-page__information__group__content__item__details__heading">{{ websiteTag.name }}</span>
+                <span class="video-page__information__group__content__item__details__subheading">{{ websiteTag.public_posts_count }} phim</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>

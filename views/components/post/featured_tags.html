@@ -1,0 +1,72 @@
+{% set websiteTags = model_relation(post, 'websiteTags') %}
+{% set websiteCategories = model_relation(post, 'websiteCategories') %}
+<div class="video-page__tags">
+    <div class="video-page__tags__symbols">
+        {% set initials = [] %}
+
+        {# website tags #}
+        {% for websiteTag in websiteTags %}
+            {% if websiteTag.is_featured %}
+                
+                {% set thumbnailFile = model_relation(websiteTag, 'thumbnailFile') %}
+                {% if thumbnailFile %}
+                <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteTag) }}" title="{{ websiteTag.name }}">
+                    <span class="video-page__tags__symbols__symbol">
+                        <img class="video-age__tags__symbols__symbol__image" alt="{{ websiteTag.name }}" src="{{ image_resize(100, thumbnailFile) }}" />
+                    </span>
+                </a>
+                {% else %}
+                    {% set initial = str_substr(websiteTag.name, 0, 1) %}
+                    {% if initial not in initials %}
+                        <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteTag) }}" title="{{ websiteTag.name }}">
+                            <span class="video-page__tags__symbols__symbol">
+                                <span class="video-page__tags__symbols__symbol__text">{{ initial | upper }}</span>
+                            </span>
+                        </a>
+                        {% set initials = initials | merge([initial]) %}
+                    {% endif %}
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+
+        {# website categories #}
+        {% for websiteCategory in websiteCategories %}
+            {% if websiteCategory.is_featured %}
+                
+                {% set thumbnailFile = model_relation(websiteCategory, 'thumbnailFile') %}
+                {% if thumbnailFile %}
+                <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteCategory) }}" title="{{ websiteCategory.title }}">
+                    <span class="video-page__tags__symbols__symbol">
+                        <img class="video-age__tags__symbols__symbol__image" alt="{{ websiteCategory.title }}" src="{{ image_resize(100, thumbnailFile) }}" />
+                    </span>
+                </a>
+                {% else %}
+                    {% set initial = str_substr(websiteCategory.title, 0, 1) %}
+                    {% if initial not in initials %}
+                        <a class="video-page__tags__symbols__wrapper" href="{{ link_to(websiteCategory) }}" title="{{ websiteCategory.title }}">
+                            <span class="video-page__tags__symbols__symbol">
+                                <span class="video-page__tags__symbols__symbol__text">{{ initial | upper }}</span>
+                            </span>
+                        </a>
+                        {% set initials = initials | merge([initial]) %}
+                    {% endif %}
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="video-page__tags__labels">
+        {% for websiteTag in websiteTags %}
+            {% if websiteTag.is_featured %}
+            <a class="video-page__tags__labels__label" href="{{ link_to(websiteTag) }}">{{ websiteTag.name }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% for websiteCategory in websiteCategories %}
+            {% if websiteCategory.is_featured %}
+            <a class="video-page__tags__labels__label" href="{{ link_to(websiteCategory) }}">{{ websiteCategory.title }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

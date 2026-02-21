@@ -1,0 +1,24 @@
+{# Tags #}
+{% set websiteTags = model_relation(post, 'websiteTags') %}
+
+<div class="video-page__information">
+
+    {# Tags by group #}
+    {% set websiteTagGroups = websiteTags | map(websiteTag => model_relation(websiteTag, 'websiteTagGroup')) %}
+    {% for websiteTagGroup in collect(websiteTagGroups).unique('name').filter() %}
+        {% include 'components/post/information/tag_group.html' with {
+            websiteTagGroup,
+            websiteTags: websiteTags.where('website_tag_group_id', websiteTagGroup.id)
+        } %}
+    {% endfor %}
+
+    {# Free tags #}
+    {% set freeTags = websiteTags.whereNull('websiteTagGroup') %}
+    {% if freeTags | length %}
+        {% include 'components/post/information/tag_group.html' with {
+            websiteTagGroup: null,
+            websiteTags: freeTags
+        } %}
+    {% endif %}
+
+</div>
