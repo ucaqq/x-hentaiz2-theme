@@ -1,5 +1,3 @@
-# Clone from xem.phimsexmoi123.com
-
 # Meta Keys
 
 | Key | Desc |
