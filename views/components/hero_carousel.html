@@ -1,4 +1,4 @@
-<div x-data="list('/ajax/top/day', true, 10)">
+<div x-data="list('/ajax/top/1h', true, 10)">
     <template x-if="data.length">
         <div class="hero-carousel group embla">
             <div class="hero-carousel__viewport embla__viewport">
@@ -57,22 +57,61 @@
             </button>
         </div>
     </template>
+    <template x-if="!data.length">
+        <div class="hero-carousel group">
+            <div class="hero-carousel__viewport embla__viewport">
+                <div class="embla__container">
+                    <div class="embla__slide">
+                        <div data-slot="carousel" class="hero-carousel__media" role="region" aria-roledescription="carousel">
+                            <div data-slot="carousel-content" class="hero-carousel__media__wrapper">
+                                <div class="flex -ms-4 ml-0" data-embla-container="">
+                                    <a href="/" title="{{ website.getMetaValue('site-name') }}" data-slot="carousel-item" role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 basis-full ps-4 pl-0" data-embla-slide="" style="opacity:1;pointer-events:auto;transform:translateX(0)">
+                                        <div class="hero-carousel__media__item">
+                                            <img src="{{ link_asset('img/default-video.jpg') }}" alt="{{ website.getMetaValue('site-name') }}">
+                                            <div class="hero-carousel__media__item__fog"></div>
+                                            <div class="absolute inset-0 hidden bg-linear-to-r from-background/40 via-transparent to-transparent sm:block"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 </div>
 
 <script>
 (function () {
-    const wrapperNode = document.querySelector('.hero-carousel')
-    const viewportNode = wrapperNode.querySelector('.hero-carousel__viewport')
-    const prevButtonNode = wrapperNode.querySelector('.hero-carousel__control-button--previous')
-    const nextButtonNode = wrapperNode.querySelector('.hero-carousel__control-button--next')
+    const startedAt = (new Date()).getTime()
+    const slideInit = () => {
+        const wrapperNode = document.querySelector('.hero-carousel.embla')
+        if (!wrapperNode) {
+            return false
+        }
 
-    const emblaApi = EmblaCarousel(viewportNode, { loop: false }, [
-        EmblaCarouselAutoplay()
-    ])
+        const viewportNode = wrapperNode.querySelector('.hero-carousel__viewport')
+        const prevButtonNode = wrapperNode.querySelector('.hero-carousel__control-button--previous')
+        const nextButtonNode = wrapperNode.querySelector('.hero-carousel__control-button--next')
 
-    prevButtonNode.addEventListener('click', () => emblaApi.scrollPrev(), false)
-    nextButtonNode.addEventListener('click', () => emblaApi.scrollNext(), false)
+        const emblaApi = EmblaCarousel(viewportNode, { loop: false }, [
+            EmblaCarouselAutoplay()
+        ])
 
-    // emblaApi.plugins().autoplay?.play()
+        prevButtonNode.addEventListener('click', () => emblaApi.scrollPrev(), false)
+        nextButtonNode.addEventListener('click', () => emblaApi.scrollNext(), false)
+
+        return true
+    }
+    
+    setTimeout(() => {
+        const init = slideInit()
+        if (init) {
+            return
+        }
+
+        setTimeout(slideInit, 1000)
+    })
 })()
 </script>
