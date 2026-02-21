@@ -1,5 +1,6 @@
 #video-page {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-5 pt-5 lg:pt-8 px-5;
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-5 lg:pt-8;
+    @apply px-1 py-5 lg:px-5;
 
     .video-page__main {
         @apply col-span-1 lg:col-span-2;

@@ -1,7 +1,7 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
-<div class="p-5">
+<div class="px-1 py-5 lg:px-5">
     {% if request.query('view') == 'the-loai' %}
 
         {% set allWebsiteCategories = website_category_all().sortByDesc('public_posts_count') %}
