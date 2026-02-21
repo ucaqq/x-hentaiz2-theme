@@ -175,6 +175,10 @@
                 @apply base-button base-button--primary;
             }
         }
+
+        .comments__list__load-more {
+            @apply base-button;
+        }
     }
 
     .video-page__side {

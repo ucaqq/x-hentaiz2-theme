@@ -72,3 +72,7 @@ body {
 #wrapper {
     @apply flex min-h-screen flex-col;
 }
+
+.border-border {
+    @apply border-border;
+}

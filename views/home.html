@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="px-1 py-5 lg:px-5">
-    {% if request.query('view') == 'the-loai' %}
+    {% set allWebsiteCategories = website_category_all().sortByDesc('public_posts_count') %}
 
-        {% set allWebsiteCategories = website_category_all().sortByDesc('public_posts_count') %}
+    {% if request.query('view') == 'the-loai' %}
 
         {% include 'components/heading.html' with {
             heading: 'Tất cả thể loại',
@@ -47,9 +47,26 @@
         {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
 
         {% include 'components/videos_carousel.html' with {
-            heading: 'Testing the component',
+            heading: 'Mới nhất',
+            viewAll: '/?view=all-videos',
             videos: listData.getResources(),
         } %}
+
+        {% for websiteCategory in allWebsiteCategories.take(5) %}
+            <br />
+            {% include 'components/videos_carousel.html' with {
+                heading: websiteCategory.title,
+                viewAll: link_to(websiteCategory),
+                videos: post_list_by_relationships('website_category', websiteCategory, 12).map((post) => post.toResourceData()),
+                large: true,
+            } %}
+        {% endfor %}
+
+        <div class="flex flex-wrap flex-col gap-3 justify-center items-center pt-5 border-t border-border mt-5">
+            <a href="/?view=all-videos" class="button button--primary cursor-pointer">Xem tất cả videos</a>
+            <span class="text-xs">hoặc</span>
+            <a href="/?view=the-loai" class="button cursor-pointer">Xem danh sách chuyên mục</a>
+        </div>
     {% endif %}
 </div>
 {% endblock %}
