@@ -29,6 +29,20 @@
             {% endfor %}
         </div>
 
+    {% elseif request.query('view') == 'all-videos' %}
+
+        {% include 'components/heading.html' with {
+            heading: 'Toàn bộ videos',
+            description: 'Xem toàn bộ videos của ' ~ website.getMetaValue('site-name'),
+            count: website.public_posts_count,
+        } %}
+        <div style="height:50px"></div>
+        {# List resources #}
+        {% include 'components/list_videos.html' with {
+            resources: listData.getResources(),
+            resourcesCount: listData.getResourcesCount(),
+        } %}
+
     {% else %}
         {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
 
