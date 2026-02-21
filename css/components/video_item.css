@@ -30,6 +30,6 @@
     }
 }
 
-.video-item:hover .video-item__thumbnail img {
+.video-item:hover .video-item__thumbnail img, .video-item.hover .video-item__thumbnail img {
     @apply object-top animate-object-pan-vertical;
 }
