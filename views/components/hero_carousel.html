@@ -28,9 +28,9 @@
                             <h2 class="featured-heading">{{ video.getTitle() }}</h2>
                         </a>
                         
-                        {% if resource.getFeaturedLabels() | length %}
+                        {% if video.getFeaturedLabels() | length %}
                         <div class="hero-carousel__info__tags">
-                            {% for label in resource.getFeaturedLabels() %}
+                            {% for label in video.getFeaturedLabels() %}
                             <span class="pill-badge pill-badge--primary">{{ label }}</span>
                             {% endfor %}
                         </div>
