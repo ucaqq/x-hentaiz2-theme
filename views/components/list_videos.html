@@ -1,12 +1,20 @@
 {% if resources %}
+<div class="list-videos-header">
+    <div class="list-videos-header__ribbon"></div>
+    <h4>Danh sách phim</h2>
+
+    {% if resourcesCount %}
+    <span class="list-videos-header__counter">{{ resourcesCount }}</span>
+    {% endif %}
+</div>
 <div class="list-videos">
-    {% for resource in resources %}
-        {% include 'components/video_item.html' with { resource } %}
+    {% for video in resources %}
+        {% include 'components/video_item.html' with { video } %}
     {% endfor %}
 </div>
 {% endif %}
 <br />
 {# Pagination #}
-{% include 'components/vlxx_pagination.html' with {
+{% include 'components/hentaiz2_pagination.html' with {
     count: resourcesCount ?: 0
 } %}

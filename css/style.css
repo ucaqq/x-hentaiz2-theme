@@ -9,6 +9,8 @@
 @import "./components/heading.css";
 @import "./components/hero_carousel.css";
 @import "./components/input.css";
+@import "./components/list_videos.css";
+@import "./components/pagination.css";
 @import "./components/video_item.css";
 @import "./components/videos_carousel.css";
 

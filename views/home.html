@@ -1,11 +1,41 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
-    {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
+<div class="p-5">
+    {% if request.query('view') == 'the-loai' %}
 
-    {% include 'components/videos_carousel.html' with {
-        heading: 'Testing the component',
-        videos: listData.getResources(),
-    } %}
-    
+        {% set allWebsiteCategories = website_category_all().sortByDesc('public_posts_count') %}
+
+        {% include 'components/heading.html' with {
+            heading: 'Tất cả thể loại',
+            count: count(allWebsiteCategories),
+        } %}
+        <div class="list-videos mt-5">
+
+            {% for websiteCategory in allWebsiteCategories %}
+            <a href="{{ link_to(websiteCategory) }}" class="video-item group">
+                <div class="relative">
+                    <div class="video-item__thumbnail">
+                        {% set thumbnailFile = model_relation(websiteCategory, 'thumbnailFile') %}
+                        <img src="{{ thumbnailFile ? image_resize(300, thumbnailFile) : link_asset('img/default-video.jpg') }}" alt="Phim sex {{ websiteCategory.title }}" />
+                    </div>
+                </div>
+                
+                <h3 href="{{ link_to(websiteCategory) }}" title="Phim sex {{ websiteCategory.title}}" class="video-item__heading">
+                    {{ websiteCategory.title }}
+                </h3>
+                <small class="video-item__subheading">{{ websiteCategory.public_posts_count }} phim</small>
+            </a>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
+
+        {% include 'components/videos_carousel.html' with {
+            heading: 'Testing the component',
+            videos: listData.getResources(),
+        } %}
+    {% endif %}
+</div>
 {% endblock %}

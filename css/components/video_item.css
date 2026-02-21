@@ -29,3 +29,7 @@
         @apply mt-1 truncate text-xs text-muted-foreground;
     }
 }
+
+.video-item:hover .video-item__thumbnail img {
+    @apply object-top animate-object-pan-vertical;
+}

@@ -6,3 +6,31 @@
 .heading {
     @apply text-xl leading-tight font-semibold;
 }
+
+.heading-card {
+    @apply relative bg-card overflow-hidden rounded-2xl;
+
+    .heading-card__thumbnail {
+        @apply absolute inset-0;
+
+        img {
+            @apply object-cover object-top size-full animate-object-pan-vertical;
+        }
+
+        div {
+            @apply absolute inset-0 bg-linear-to-t from-card to-card/60 via-card/80;
+        }
+    }
+
+    .heading-card__content {
+        @apply relative md:p-8 p-6;
+
+        h1 {
+            @apply font-bold md:text-4xl text-2xl;
+        }
+
+        .heading-card__content__description {
+            @apply text-muted-foreground max-w-2xl mt-2;
+        }
+    }
+}

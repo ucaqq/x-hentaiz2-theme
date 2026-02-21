@@ -1,35 +1,20 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
+<div class="p-5">
     {% include 'components/heading.html' with {
-        text: listData.getTitle()
+        heading: listData.getTitle(),
+        description: listData.getDescription(),
+        thumbnailFile: listData.getThumbnailFile(),
+        count: listData.getResourcesCount(),
+    } %}
+    <div style="height:50px"></div>
+
+    {# List resources #}
+    {% include 'components/list_videos.html' with {
+        resources: listData.getResources(),
+        resourcesCount: listData.getResourcesCount(),
     } %}
 
-    {% if request.query('view') == 'the-loai' %}
-        <div class="list-videos">
-            {% for websiteCategory in website_category_all().sortByDesc('public_posts_count') %}
-            <div class="video-item">
-                <a href="{{ link_to(websiteCategory) }}" class="video-item__thumb">
-                    {% set thumbnailFile = model_relation(websiteCategory, 'thumbnailFile') %}
-                    <img src="{{ thumbnailFile ? image_resize(300, thumbnailFile) : link_asset('img/default-video.jpg') }}" alt="Phim sex {{ websiteCategory.title }}" />
-                </a>
-                <div class="video-item__title">
-                    <a href="{{ link_to(websiteCategory) }}" title="Phim sex {{ websiteCategory.title}}">
-                        {{ websiteCategory.title }}
-                    </a>
-                    <small class="text-xs">{{ websiteCategory.public_posts_count }} phim</small>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    {% else %}
-
-        {# List resources #}
-        {% include 'components/list_videos.html' with {
-            resources: listData.getResources(),
-            resourcesCount: listData.getResourcesCount(),
-        } %}
-
-    {% endif %}
-    
+</div>
 {% endblock %}

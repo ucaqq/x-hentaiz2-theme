@@ -1,0 +1,28 @@
+{#
+    Variables: heading, description, thumbnailFile, count
+#}
+<div class="heading-card">
+    {% if thumbnailFile %}
+    <div class="heading-card__thumbnail">
+        <img alt="{{ heading }}" src="{{ image_resize(300, thumbnailFile) }}">
+        <div></div>
+    </div>
+    {% endif %}
+    <div class="heading-card__content">
+        <h1>{{ heading }}</h1>
+        {% if description %}
+        <p class="heading-card__content__description">
+            {{ description }}
+        </p>
+        {% endif %}
+
+        {% if count %}
+        <div class="flex mt-4 text-center">
+            <div class="bg-muted/50 px-4 py-2 rounded-lg">
+                <p class="text-muted-foreground text-xs">Số lượng</p>
+                <p class="font-bold text-xl">{{ count }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
