@@ -20,7 +20,25 @@
             <div data-slot="scroll-area-viewport" class="aside__menu__wrapper" style="overflow:hidden scroll" data-scroll-area-viewport="">
                 <div data-scroll-area-content="">
                     <div data-slot="sidebar-content" data-sidebar="content" class="aside__menu__content">
-                        
+                        {% include 'partials/aside/group.html' with {
+                            asItem: false,
+                            heading: '',
+                            items: [
+                                {
+                                    text: 'Trang chủ',
+                                    link: '/',
+                                },
+                                {
+                                    text: 'Thể loại',
+                                    link: '/?view=the-loai',
+                                },
+                                {
+                                    text: 'Bảng xếp hạng',
+                                    link: '/?view=top',
+                                },
+                            ]
+                        } %}
+
                         {% if menu %}
                             {% for item in menu %}
                                 {% if item.items %}

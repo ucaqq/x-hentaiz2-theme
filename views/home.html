@@ -5,68 +5,13 @@
     {% set allWebsiteCategories = website_category_all().sortByDesc('public_posts_count') %}
 
     {% if request.query('view') == 'the-loai' %}
-
-        {% include 'components/heading.html' with {
-            heading: 'Tất cả thể loại',
-            count: count(allWebsiteCategories),
-        } %}
-        <div class="list-videos mt-5">
-
-            {% for websiteCategory in allWebsiteCategories %}
-            <a href="{{ link_to(websiteCategory) }}" class="video-item group">
-                <div class="relative">
-                    <div class="video-item__thumbnail">
-                        {% set thumbnailFile = model_relation(websiteCategory, 'thumbnailFile') %}
-                        <img src="{{ thumbnailFile ? image_resize(300, thumbnailFile) : link_asset('img/default-video.jpg') }}" alt="Phim sex {{ websiteCategory.title }}" />
-                    </div>
-                </div>
-                
-                <h3 href="{{ link_to(websiteCategory) }}" title="Phim sex {{ websiteCategory.title}}" class="video-item__heading">
-                    {{ websiteCategory.title }}
-                </h3>
-                <small class="video-item__subheading">{{ websiteCategory.public_posts_count }} phim</small>
-            </a>
-            {% endfor %}
-        </div>
-
+        {% include 'components/home/website_categories.html' with {allWebsiteCategories} %}
     {% elseif request.query('view') == 'all-videos' %}
-
-        {% include 'components/heading.html' with {
-            heading: 'Toàn bộ videos',
-            description: 'Xem toàn bộ videos của ' ~ website.getMetaValue('site-name'),
-            count: website.public_posts_count,
-        } %}
-        <div style="height:50px"></div>
-        {# List resources #}
-        {% include 'components/list_videos.html' with {
-            resources: listData.getResources(),
-            resourcesCount: listData.getResourcesCount(),
-        } %}
-
+        {% include 'components/home/all_videos.html' with {listData} %}
+    {% elseif request.query('view') == 'top' %}
+        {% include 'components/home/top.html' %}
     {% else %}
-        {% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
-
-        {% include 'components/videos_carousel.html' with {
-            heading: 'Mới nhất',
-            viewAll: '/?view=all-videos',
-            videos: listData.getResources(),
-        } %}
-
-        {% for websiteCategory in allWebsiteCategories.take(5) %}
-            <br />
-            {% include 'components/videos_carousel.html' with {
-                heading: websiteCategory.title,
-                viewAll: link_to(websiteCategory),
-                videos: post_list_by_relationships('website_category', websiteCategory, 12).map((post) => post.toResourceData()),
-                large: true,
-            } %}
-        {% endfor %}
-
-        <div class="flex flex-wrap flex-col gap-3 justify-center items-center pt-5 border-t border-border mt-5">
-            <a href="/?view=all-videos" class="button button--primary cursor-pointer">Xem tất cả videos</a>
-            <span class="text-xs">hoặc</span>
-            <a href="/?view=the-loai" class="button cursor-pointer">Xem danh sách chuyên mục</a>
-        </div>
+        {% include 'components/home/default.html' with {listData, allWebsiteCategories} %}
     {% endif %}
 </div>
 {% endblock %}

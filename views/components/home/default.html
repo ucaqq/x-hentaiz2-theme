@@ -1,0 +1,23 @@
+{% include 'components/hero_carousel.html' with { videos: listData.getResources() } %}
+
+{% include 'components/videos_carousel.html' with {
+    heading: 'Mới nhất',
+    viewAll: '/?view=all-videos',
+    videos: listData.getResources(),
+} %}
+
+{% for websiteCategory in allWebsiteCategories.take(5) %}
+    <br />
+    {% include 'components/videos_carousel.html' with {
+        heading: websiteCategory.title,
+        viewAll: link_to(websiteCategory),
+        videos: post_list_by_relationships('website_category', websiteCategory, 12).map((post) => post.toResourceData()),
+        large: true,
+    } %}
+{% endfor %}
+
+<div class="flex flex-wrap flex-col lg:flex-row gap-3 justify-center items-center pt-5 border-t border-border mt-5">
+    <a href="/?view=all-videos" class="button button--primary cursor-pointer">Xem tất cả videos</a>
+    <span class="text-xs">hoặc</span>
+    <a href="/?view=the-loai" class="button cursor-pointer">Xem danh sách chuyên mục</a>
+</div>

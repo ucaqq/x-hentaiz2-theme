@@ -1,0 +1,106 @@
+{% set tab = request.query('tab') ?: '1h' %}
+
+<div class="home__top">
+
+    <div class="mb-6 text-center">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-trophy size-8 shrink-0 md:size-10">
+                <path d="M8 21l8 0"></path>
+                <path d="M12 17l0 4"></path>
+                <path d="M7 4l10 0"></path>
+                <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
+                <path d="M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                <path d="M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+            </svg>
+            <span class="min-w-0">Bảng Xếp Hạng Phim</span>
+        </h1>
+        <p class="text-muted-foreground">Khám phá những tập phim được yêu thích nhất</p>
+    </div>
+
+    <div class="home__top__content">
+        <div class="home__top__content__main">
+            
+            <div class="overflow-hidden home__top__card">
+                <div class="home__top__card__header">
+                    <div class="home__top__card__header__wrapper">
+                        <div class="flex items-center gap-3">
+                            <div class="home__top__card__header__icon home__top__card__header__icon--views">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-eye size-5 text-primary-foreground">
+                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-semibold">Top Lượt Xem</h2>
+                        </div>
+                        <div class="home__top__card__header__tabs">
+                            <div class="home__top__card__header__tabs__wrapper">
+                                <a class="home__top__card__header__tabs__tab" data-state="{{ tab == '1h' ? 'active' : 'inactive' }}" href="/?view=top&tab=1h">Trending</a>
+                                <a class="home__top__card__header__tabs__tab" data-state="{{ tab == 'day' ? 'active' : 'inactive' }}" href="/?view=top&tab=day">Ngày</a>
+                                <a class="home__top__card__header__tabs__tab" data-state="{{ tab == 'week' ? 'active' : 'inactive' }}" href="/?view=top&tab=week">Tuần</a>
+                                <a class="home__top__card__header__tabs__tab" data-state="{{ tab == 'month' ? 'active' : 'inactive' }}" href="/?view=top&tab=month">Tháng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="home__top__card__content" x-data="list('/ajax/top/{{ tab }}', true, 100)">
+                    <div class="home__top__card__content__wrapper">
+
+                        <template x-for="video in data">
+                            <a class="home__top__card__content__video group" :href="video.url">
+                                <div class="home__top__card__content__video__thumbnail">
+                                    <img :src="video.thumbnail_file_url || '{{ link_asset('img/default-video.jpg') }}'" :alt="video.title">
+                                </div>
+                                <div class="min-w-0 flex-1 flex flex-col gap-3">
+                                    <h3 class="truncate text-sm font-medium transition-colors group-hover:text-primary" :title="video.title" x-text="video.title"></h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <template x-for="label in video.featured_labels">
+                                            <p class="truncate text-xs text-muted-foreground" x-text="label"></p>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div class="flex shrink-0 items-center gap-1 font-semibold text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-eye size-3">
+                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                                    </svg>
+                                    <span class="text-sm" x-text="video.views"></span>
+                                </div>
+                            </a>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="home__top__content__side">
+            
+            <div class="overflow-hidden home__top__card">
+                <div class="home__top__card__header">
+                    <div class="home__top__card__header__wrapper">
+                        <div class="flex items-center gap-3">
+                            <div class="home__top__card__header__icon home__top__card__header__icon--comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-message-circle size-5 text-primary-foreground">
+                                    <path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-semibold">Bình luận mới</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="home__top__card__content space-y-3" x-data="list('/ajax/comments', true, 25)">
+                    <template x-for="comment in data">
+                        <div class="home__top__card__content__comment">
+                            <div class="home__top__card__content__comment__commentable">
+                                <a :href="comment.commentable.url" x-text="comment.commentable.title"></a>
+                            </div>
+                            <strong class="home__top__card__content__comment__name" x-text="comment.name"></strong>
+                            <span class="text-xs">đã nói rằng:</span>
+                            <p x-text="comment.content"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
