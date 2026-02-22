@@ -19,7 +19,7 @@
             <div class="video-page__side__card__content__wrapper" style="overflow:hidden scroll">
                 
                 {% for relatedPost in relatedPosts %}
-                <a class="video-page__side__card__list-item group" href=/watch/imaizumin-chi-wa-douyara-gal-no-tamariba-ni-natteru-rashii-1>
+                <a class="video-page__side__card__list-item group" href="{{ link_to(relatedPost) }}">
                     <div class="video-page__side__card__list-item__thumbnail-wrapper">
                         <div class="video-page__side__card__list-item__thumbnail">
                             {% set thumbnailFile = model_relation(relatedPost, 'thumbnailFile') %}
