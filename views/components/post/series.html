@@ -9,7 +9,7 @@
 {% endfor %}
 
 {% if seriesWebsiteTag %}
-    {% set relatedPosts = post_list_by_relationships('website_tag', seriesWebsiteTag, 20).where('id', '!=', post.id) %}
+    {% set relatedPosts = post_list_by_relationships('website_tag', seriesWebsiteTag, 20).sortBy('title') %}
     {% if relatedPosts | length %}
     <div class="video-page__side__card mb-5">
         <div class="video-page__side__card__heading">
@@ -33,6 +33,12 @@
                     <div class="video-page__side__card__list-item__details">
                         <h4 class="video-page__side__card__list-item__details__heading">{{ relatedPost.title }}</h4>
                         <span class="video-page__side__card__list-item__details__subheading">{{ relatedPost.views }} lượt xem</span>
+
+                        {% if post.id == relatedPost.id %}
+                        <div>
+                            <span class="badge badge--primary" style="font-size: 10px">Đang xem</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </a>
                 {% endfor %}
