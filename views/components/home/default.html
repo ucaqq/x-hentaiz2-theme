@@ -8,15 +8,26 @@
     videos: listData.getResources(),
 } %}
 
+{% set showedPostIds = [] %}
+{% set index = 0 %}
 {% for websiteCategory in allWebsiteCategories.take(5) %}
     <br />
+
+    {% set websiteCategoryPosts = post_list_by_relationships('website_category', websiteCategory, (index + 1) * 12).map((post) => post.toResourceData()) %}
+    {% set filteredPosts = websiteCategoryPosts | filter(p => not collect(showedPostIds).contains(p.getModel().id)) | slice(0, 12) %}
+
     {% include 'components/videos_carousel.html' with {
         heading: websiteCategory.title,
         viewAll: link_to(websiteCategory),
-        videos: post_list_by_relationships('website_category', websiteCategory, 12).map((post) => post.toResourceData()),
+        videos: filteredPosts,
         large: true,
         count: websiteCategory.public_posts_count,
     } %}
+
+    {% set ids = filteredPosts | map(p => p.getModel().id) %}
+    {% set showedPostIds = showedPostIds | merge(ids) %}
+
+    {% set index = index + 1 %}
 {% endfor %}
 
 <div class="flex flex-wrap flex-col lg:flex-row gap-3 justify-center items-center pt-5 border-t border-border mt-5">
